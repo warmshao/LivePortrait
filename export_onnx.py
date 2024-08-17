@@ -117,7 +117,7 @@ def load_torch_models(cfg, model_config, device=torch.device("cpu"), dtype=torch
 if __name__ == '__main__':
     is_animal = True
     device = torch.device("cuda")
-    weight_dtype = torch.float16
+    weight_dtype = torch.float32
     onnx_save_dir = "pretrained_weights/liveportrait_animal_onnx" if is_animal else "pretrained_weights/liveportrait_onnx"
     print(onnx_save_dir)
     os.makedirs(onnx_save_dir, exist_ok=True)
@@ -209,7 +209,7 @@ if __name__ == '__main__':
         (inputs['feature_3d'], inputs['kp_driving'], inputs['kp_source']),
         os.path.join(onnx_save_dir, "warping_spade.onnx"),
         export_params=True,
-        opset_version=20,
+        opset_version=16,
         do_constant_folding=True,
         input_names=['feature_3d', 'kp_driving', 'kp_source'],
         output_names=['out'],
